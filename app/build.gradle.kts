@@ -7,6 +7,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.apollo)
 }
 
 android {
@@ -57,4 +58,9 @@ android {
 dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.androidx)
+    implementation(libs.apollo)
+}
+
+apollo {
+    packageName.set("meehan.matthew.pokedexapp")
 }
