@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.apollo)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -59,6 +61,8 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.androidx)
     implementation(libs.apollo)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
 
 apollo {
