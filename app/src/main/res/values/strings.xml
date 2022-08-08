@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PokedexApp</string>
+    <string name="pokedex_list">Pokedex List</string>
+    <string name="pokedex_favorites">Pokedex Favorites</string>
 </resources>
