@@ -8,10 +8,11 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.mvrx.compose.mavericksViewModel
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 
 @Composable
@@ -72,14 +73,14 @@ fun PokedexApp(
                     route = NavigationRoute.POKEDEX_LIST_ROUTE.route
                 ) {
                     PokedexListScreen(
-                        viewModel = viewModel()
+                        viewModel = mavericksViewModel()
                     )
                 }
                 composable(
                     route = NavigationRoute.POKEDEX_FAVORITES_ROUTE.route
                 ) {
                     PokedexFavoritesScreen(
-                        viewModel = viewModel()
+                        viewModel = hiltViewModel()
                     )
                 }
             }

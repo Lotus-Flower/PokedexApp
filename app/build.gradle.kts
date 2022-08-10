@@ -62,7 +62,11 @@ dependencies {
     implementation(libs.bundles.androidx)
     implementation(libs.apollo)
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation)
+    implementation(libs.bundles.mavericks)
     kapt(libs.hilt.compiler)
+
+    debugImplementation(libs.bundles.compose.preview)
 }
 
 apollo {
