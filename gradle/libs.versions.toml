@@ -14,6 +14,7 @@ mavericks = "2.7.0"
 coil = "2.1.0"
 custom-view = "1.2.0-alpha01"
 custom-view-pooling-container = "1.0.0-alpha01"
+datastore = "1.0.0"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -21,6 +22,7 @@ androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", vers
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 androidx-custom-view = { module = "androidx.customview:customview", version.ref = "custom-view" }
 androidx-custom-view-pooling-container = { module = "androidx.customview:customview-poolingcontainer", version.ref = "custom-view-pooling-container" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 apollo = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
 hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }

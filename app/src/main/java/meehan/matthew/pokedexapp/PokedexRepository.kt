@@ -10,19 +10,15 @@ class PokedexRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
     private val apolloClient: ApolloClient
 ) {
-    suspend fun getPokemonList() = withContext(dispatcher) {
+    suspend fun getPokemonList(limit: Int = DEFAULT_POKEMON_LIMIT) = withContext(dispatcher) {
         apolloClient.query(
             AllPokemonQuery(
-                limit = Optional.Present(150)
+                limit = Optional.Present(limit)
             )
-        ).execute().data?.allPokemon?.mapNotNull { query ->
-            PokemonListResponse(
-                name = query?.name.orEmpty().replaceFirstChar { it.uppercase() },
-                types = query?.types?.joinToString(
-                    separator = ", "
-                ) { it?.name.orEmpty() }.orEmpty(),
-                sprite = query?.sprites?.front_default.orEmpty()
-            )
-        }.orEmpty()
+        ).execute().data?.allPokemon.toPokemonListResponse()
+    }
+
+    companion object {
+        private const val DEFAULT_POKEMON_LIMIT = 150
     }
 }

@@ -7,6 +7,9 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PokedexListViewModel @AssistedInject constructor(
     @Assisted state: PokedexListScreenState,
@@ -18,12 +21,21 @@ class PokedexListViewModel @AssistedInject constructor(
     }
 
     private fun getPokemonList() {
-        suspend {
-            repository.getPokemonList()
-        }.execute {
-            this.copy(
-                data = it.invoke().orEmpty()
-            )
+        viewModelScope.launch {
+            val pokemon = repository.getPokemonList()
+
+            withContext(Dispatchers.Main) {
+                this@PokedexListViewModel.setState {
+                    this.copy(
+                        data = pokemon.map {
+                            PokedexItemState(
+                                data = it,
+                                favorite = false
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
 
