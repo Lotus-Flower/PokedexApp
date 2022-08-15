@@ -33,7 +33,7 @@ fun PokedexList(
                 PokedexItemView(
                     item = item
                 )
-            },
+            }
         )
     }
 }

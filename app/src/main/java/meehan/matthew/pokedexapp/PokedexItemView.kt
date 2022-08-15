@@ -5,6 +5,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.twotone.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -58,17 +59,28 @@ fun PokedexItemView(
             )
         )
         IconToggleButton(
-            checked = false,
-            onCheckedChange = {},
+            checked = item.favorite,
+            onCheckedChange = {
+                item.onFavoriteButtonChecked.invoke(
+                    it,
+                    item.data.id
+                )
+            },
             modifier = Modifier
                 .align(
                     alignment = Alignment.CenterVertically
                 )
         ) {
             Icon(
-                imageVector = Icons.TwoTone.Star,
+                imageVector = when (item.favorite) {
+                    true -> Icons.Filled.Star
+                    false -> Icons.TwoTone.Star
+                },
                 contentDescription = "",
-                tint = Color.LightGray
+                tint = when (item.favorite) {
+                    true -> Purple200
+                    false -> Color.LightGray
+                }
             )
         }
     }
@@ -80,12 +92,16 @@ fun PokedexItemViewPreview() {
     PokedexAppTheme {
         PokedexItemView(
             PokedexItemState(
-               data = PokemonListResponse(
-                   name = "Bulbasaur",
-                   types = "Grass, Poison",
-                   sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-               ),
-               favorite = false
+                data = PokemonListResponse(
+                    id = "1",
+                    name = "Bulbasaur",
+                    types = "Grass, Poison",
+                    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                ),
+                favorite = false,
+                onFavoriteButtonChecked = {
+                    _, _ ->
+                }
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,11 +117,15 @@ fun PokedexItemViewPreviewFavorite() {
         PokedexItemView(
             PokedexItemState(
                 data = PokemonListResponse(
+                    id = "1",
                     name = "Bulbasaur",
                     types = "Grass, Poison",
                     sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
                 ),
-                favorite = true
+                favorite = true,
+                onFavoriteButtonChecked = {
+                    _, _ ->
+                }
             ),
             modifier = Modifier
                 .fillMaxWidth()

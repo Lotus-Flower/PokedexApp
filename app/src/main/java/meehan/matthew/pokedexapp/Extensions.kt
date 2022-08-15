@@ -3,10 +3,15 @@ package meehan.matthew.pokedexapp
 fun List<AllPokemonQuery.AllPokemon?>?.toPokemonListResponse() =
     this?.mapNotNull { query ->
         PokemonListResponse(
-            name = query?.name.orEmpty().replaceFirstChar { it.uppercase() },
-            types = query?.types?.joinToString(
+            id = query?.id?.toString() ?: return@mapNotNull null,
+            name = query.name?.replaceFirstChar { it.uppercase() } ?: return@mapNotNull null,
+            types = query.types?.mapNotNull { pokemonType ->
+                pokemonType?.name
+            }?.joinToString(
                 separator = ", "
-            ) { it?.name.orEmpty() }.orEmpty(),
-            sprite = query?.sprites?.front_default.orEmpty()
+            ) { name ->
+                name
+            } ?: return@mapNotNull null,
+            sprite = query.sprites?.front_default ?: return@mapNotNull null
         )
     }.orEmpty()

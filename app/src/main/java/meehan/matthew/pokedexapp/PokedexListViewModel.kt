@@ -8,6 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -17,25 +18,55 @@ class PokedexListViewModel @AssistedInject constructor(
 ) : MavericksViewModel<PokedexListScreenState>(state) {
 
     init {
-        getPokemonList()
+        getPokemonData()
+        collectFavoritesUpdates()
     }
 
-    private fun getPokemonList() {
+    private fun getPokemonData() {
         viewModelScope.launch {
-            val pokemon = repository.getPokemonList()
+            val pokemonList = repository.getPokemonList()
+            val favorites = repository.getFavorites().first()
+
+            val data = pokemonList.map { pokemon ->
+                PokedexItemState(
+                    data = pokemon,
+                    favorite = favorites.contains(pokemon.id),
+                    onFavoriteButtonChecked = { checked, id ->
+                        onFavoriteButtonChecked(checked, id)
+                    }
+                )
+            }
 
             withContext(Dispatchers.Main) {
                 this@PokedexListViewModel.setState {
                     this.copy(
-                        data = pokemon.map {
-                            PokedexItemState(
-                                data = it,
-                                favorite = false
-                            )
-                        }
+                        data = data
                     )
                 }
             }
+        }
+    }
+
+    private fun collectFavoritesUpdates() = viewModelScope.launch {
+        repository.getFavorites().execute { favorites ->
+            val list = mutableListOf<PokedexItemState>()
+            this.data.forEach {
+                list.add(
+                    it.copy(
+                        favorite = favorites.invoke()?.contains(it.data.id) ?: false
+                    )
+                )
+            }
+            this.copy(
+                data = list
+            )
+        }
+    }
+
+    private fun onFavoriteButtonChecked(checked: Boolean, id: String) = viewModelScope.launch {
+        when (checked) {
+            true -> repository.addFavorite(id)
+            false -> repository.removeFavorite(id)
         }
     }
 
