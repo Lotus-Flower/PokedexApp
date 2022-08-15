@@ -1,0 +1,12 @@
+query SinglePokemon($pokemonId: Int!) {
+  pokemon(id: $pokemonId) {
+    id
+    name
+    types {
+      name
+    }
+    sprites {
+      front_default
+    }
+  }
+}

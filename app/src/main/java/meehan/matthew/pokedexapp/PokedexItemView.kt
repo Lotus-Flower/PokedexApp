@@ -92,7 +92,7 @@ fun PokedexItemViewPreview() {
     PokedexAppTheme {
         PokedexItemView(
             PokedexItemState(
-                data = PokemonListResponse(
+                data = PokemonItemResponse(
                     id = "1",
                     name = "Bulbasaur",
                     types = "Grass, Poison",
@@ -116,7 +116,7 @@ fun PokedexItemViewPreviewFavorite() {
     PokedexAppTheme {
         PokedexItemView(
             PokedexItemState(
-                data = PokemonListResponse(
+                data = PokemonItemResponse(
                     id = "1",
                     name = "Bulbasaur",
                     types = "Grass, Poison",

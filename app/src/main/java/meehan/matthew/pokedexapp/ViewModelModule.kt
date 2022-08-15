@@ -15,4 +15,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PokedexListViewModel::class)
     abstract fun pokedexListViewModelFactory(factory: PokedexListViewModel.Factory): AssistedViewModelFactory<*, *>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PokedexFavoritesViewModel::class)
+    abstract fun pokedexFavoritesViewModelFactory(factory: PokedexFavoritesViewModel.Factory): AssistedViewModelFactory<*, *>
 }

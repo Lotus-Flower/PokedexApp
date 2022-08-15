@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -80,7 +79,7 @@ fun PokedexApp(
                     route = NavigationRoute.POKEDEX_FAVORITES_ROUTE.route
                 ) {
                     PokedexFavoritesScreen(
-                        viewModel = hiltViewModel()
+                        viewModel = mavericksViewModel()
                     )
                 }
             }

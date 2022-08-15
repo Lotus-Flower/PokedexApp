@@ -20,6 +20,14 @@ class PokedexRepository @Inject constructor(
         ).execute().data?.allPokemon.toPokemonListResponse()
     }
 
+    suspend fun getSinglePokemonById(id: Int) = withContext(dispatcher) {
+        apolloClient.query(
+            SinglePokemonQuery(
+                pokemonId = id
+            )
+        ).execute().data?.pokemon.toPokemonItemResponse()
+    }
+
     suspend fun getFavorites() = withContext(dispatcher) {
         dataStore.getFavorites()
     }
