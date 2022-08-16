@@ -1,5 +1,9 @@
 package meehan.matthew.pokedexapp
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import meehanmatthewpokedexapp.Pokemon
+
 fun List<AllPokemonQuery.AllPokemon?>?.toPokemonListResponse() =
     this?.mapNotNull { query ->
         PokemonItemResponse(
@@ -34,3 +38,15 @@ fun SinglePokemonQuery.Pokemon?.toPokemonItemResponse(): PokemonItemResponse? {
         return null
     }
 }
+
+fun  Flow<List<Pokemon>>.mapToPokemonListResponse() =
+    this.map { list ->
+        list.map { pokemon ->
+            PokemonItemResponse(
+                id = pokemon.id,
+                name = pokemon.name,
+                types = pokemon.types,
+                sprite = pokemon.sprite
+            )
+        }
+    }

@@ -18,52 +18,38 @@ class PokedexFavoritesViewModel @AssistedInject constructor(
 ) : MavericksViewModel<PokedexFavoritesScreenState>(state) {
 
     init {
-        getPokemonData()
-        collectFavoritesUpdates()
+        getFavoritePokemon()
     }
 
-    private fun getPokemonData() {
-        viewModelScope.launch {
-            val favorites = repository.getFavorites().first()
-
-            getFavoritePokemon(favorites)
-        }
-    }
-
-    private suspend fun getFavoritePokemon(favorites: Set<String>) {
-        val data = favorites.mapNotNull { id ->
-            repository.getSinglePokemonById(id.toInt())?.let {
+    private fun getFavoritePokemon() = viewModelScope.launch {
+        repository.getFavorites().collect { pokemonList ->
+            val data = pokemonList.map { pokemonItem ->
                 PokedexItemState(
-                    data = it,
+                    data = pokemonItem,
                     favorite = true,
-                    onFavoriteButtonChecked = { _, id ->
-                        onFavoriteButtonChecked(id)
+                    onFavoriteButtonChecked = { _ ->
+                        onFavoriteButtonChecked(
+                            id = pokemonItem.id
+                        )
                     }
                 )
+            }.sortedBy {
+                it.data.id.toInt()
             }
-        }.sortedBy {
-            it.data.id
+
+            withContext(Dispatchers.Main) {
+                this@PokedexFavoritesViewModel.setState {
+                    this.copy(
+                        data = data
+                    )
+                }
+            }
         }
-
-        withContext(Dispatchers.Main) {
-            this@PokedexFavoritesViewModel.setState {
-                this.copy(
-                    data = data
-                )
-            }
-        }
     }
 
-    private fun collectFavoritesUpdates() = viewModelScope.launch {
-        repository.getFavorites()
-            .collect {
-                getFavoritePokemon(it)
-            }
-    }
-
-    private fun onFavoriteButtonChecked(id: String) = viewModelScope.launch {
-        repository.removeFavorite(id)
-    }
+    private fun onFavoriteButtonChecked(id: String) = repository.removeFavorite(
+        id = id
+    )
 
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<PokedexFavoritesViewModel, PokedexFavoritesScreenState> {

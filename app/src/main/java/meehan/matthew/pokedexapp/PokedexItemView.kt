@@ -62,8 +62,7 @@ fun PokedexItemView(
             checked = item.favorite,
             onCheckedChange = {
                 item.onFavoriteButtonChecked.invoke(
-                    it,
-                    item.data.id
+                    it
                 )
             },
             modifier = Modifier
@@ -99,9 +98,7 @@ fun PokedexItemViewPreview() {
                     sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
                 ),
                 favorite = false,
-                onFavoriteButtonChecked = {
-                    _, _ ->
-                }
+                onFavoriteButtonChecked = {}
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -123,9 +120,7 @@ fun PokedexItemViewPreviewFavorite() {
                     sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
                 ),
                 favorite = true,
-                onFavoriteButtonChecked = {
-                    _, _ ->
-                }
+                onFavoriteButtonChecked = {}
             ),
             modifier = Modifier
                 .fillMaxWidth()

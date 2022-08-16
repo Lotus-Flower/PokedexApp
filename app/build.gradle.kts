@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.apollo)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.sql.delight)
 }
 
 android {
@@ -65,6 +66,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
     implementation(libs.bundles.mavericks)
+    implementation(libs.bundles.sql.delight)
     kapt(libs.hilt.compiler)
 
     debugImplementation(libs.bundles.compose.preview)

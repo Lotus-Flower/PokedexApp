@@ -1,0 +1,46 @@
+CREATE TABLE Pokemon (
+    id TEXT NOT NULL UNIQUE PRIMARY KEY,
+    name TEXT NOT NULL,
+    types TEXT NOT NULL,
+    sprite TEXT NOT NULL
+);
+
+CREATE TABLE Favorites (
+   id TEXT NOT NULL,
+   FOREIGN KEY (id) REFERENCES Pokemon(id) ON DELETE NO ACTION
+);
+
+selectAll:
+SELECT *
+FROM Pokemon;
+
+selectAllFavorites:
+SELECT *
+FROM Pokemon
+WHERE id IN (SELECT id FROM Favorites);
+
+insertOrReplacePokemon:
+INSERT OR REPLACE INTO Pokemon(
+    id,
+    name,
+    types,
+    sprite
+)
+VALUES (:id, :name, :types, :sprite);
+
+addFavoritePokemonById:
+INSERT OR REPLACE INTO Favorites(
+    id
+)
+VALUES (:id);
+
+removeFavoritePokemonById:
+DELETE
+FROM Favorites
+WHERE id = :id;
+
+deleteAllPokemon:
+DELETE FROM Pokemon;
+
+deleteAllFavorites:
+DELETE FROM Favorites;

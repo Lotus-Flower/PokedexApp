@@ -8,6 +8,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,22 +21,25 @@ class PokedexListViewModel @AssistedInject constructor(
 
     init {
         getPokemonData()
-        collectFavoritesUpdates()
     }
 
-    private fun getPokemonData() {
-        viewModelScope.launch {
-            val pokemonList = repository.getPokemonList()
-            val favorites = repository.getFavorites().first()
-
-            val data = pokemonList.map { pokemon ->
+    private fun getPokemonData() = viewModelScope.launch {
+        combine(repository.getLocalPokemonList(), repository.getFavorites()) { pokemonList, favorites ->
+            val data = pokemonList.map { pokemonItem ->
                 PokedexItemState(
-                    data = pokemon,
-                    favorite = favorites.contains(pokemon.id),
-                    onFavoriteButtonChecked = { checked, id ->
-                        onFavoriteButtonChecked(checked, id)
+                    data = pokemonItem,
+                    favorite = favorites.any { favorite ->
+                         favorite.id == pokemonItem.id
+                    },
+                    onFavoriteButtonChecked = { checked ->
+                        onFavoriteButtonChecked(
+                            checked = checked,
+                            id = pokemonItem.id
+                        )
                     }
                 )
+            }.sortedBy {
+                it.data.id.toInt()
             }
 
             withContext(Dispatchers.Main) {
@@ -44,32 +49,19 @@ class PokedexListViewModel @AssistedInject constructor(
                     )
                 }
             }
-        }
-    }
-
-    private fun collectFavoritesUpdates() = viewModelScope.launch {
-        repository.getFavorites().execute { favorites ->
-            val list = mutableListOf<PokedexItemState>()
-            this.data.forEach {
-                list.add(
-                    it.copy(
-                        favorite = favorites.invoke()?.contains(it.data.id) ?: false
-                    )
-                )
-            }
-            this.copy(
-                data = list
-            )
-        }
+        }.collect()
     }
 
     private fun onFavoriteButtonChecked(checked: Boolean, id: String) = viewModelScope.launch {
         when (checked) {
-            true -> repository.addFavorite(id)
-            false -> repository.removeFavorite(id)
+            true -> repository.addFavorite(
+                id = id
+            )
+            false -> repository.removeFavorite(
+                id = id
+            )
         }
     }
-
 
     @AssistedFactory
     interface Factory : AssistedViewModelFactory<PokedexListViewModel, PokedexListScreenState> {

@@ -15,6 +15,7 @@ coil = "2.1.0"
 custom-view = "1.2.0-alpha01"
 custom-view-pooling-container = "1.0.0-alpha01"
 datastore = "1.0.0"
+sql-delight = "1.5.3"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -36,12 +37,16 @@ compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil"}
 mavericks = { module = "com.airbnb.android:mavericks", version.ref = "mavericks"}
 mavericks-hilt = { module = "com.airbnb.android:mavericks-hilt", version.ref = "mavericks"}
 mavericks-compose = { module = "com.airbnb.android:mavericks-compose", version.ref = "mavericks" }
+sql-delight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sql-delight" }
+sql-delight-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sql-delight"}
+sql-delight-coroutines = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sql-delight" }
 
 [bundles]
 androidx = ["androidx-core", "androidx-lifecycle", "androidx-activity-compose"]
 compose = ["compose-ui", "compose-material", "compose-navigation", "compose-coil"]
 compose-preview = ["compose-tooling", "androidx-custom-view", "androidx-custom-view-pooling-container"]
 mavericks = ["mavericks", "mavericks-hilt", "mavericks-compose"]
+sql-delight = ["sql-delight-driver", "sql-delight-coroutines"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradleplugin" }
@@ -50,3 +55,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+sql-delight = { id = "com.squareup.sqldelight", version.ref = "sql-delight" }
