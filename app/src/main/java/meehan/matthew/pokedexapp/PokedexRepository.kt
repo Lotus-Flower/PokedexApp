@@ -13,7 +13,6 @@ import javax.inject.Singleton
 class PokedexRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
     private val apolloClient: ApolloClient,
-    private val dataStore: PokedexDataStore,
     private val database: Database
 ) {
     init {
@@ -26,14 +25,6 @@ class PokedexRepository @Inject constructor(
                 limit = Optional.Present(limit)
             )
         ).execute().data?.allPokemon.toPokemonListResponse()
-    }
-
-    suspend fun getSingleRemotePokemonById(id: Int) = withContext(dispatcher) {
-        apolloClient.query(
-            SinglePokemonQuery(
-                pokemonId = id
-            )
-        ).execute().data?.pokemon.toPokemonItemResponse()
     }
 
     fun getFavorites() = database.pokemonQueries

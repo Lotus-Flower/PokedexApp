@@ -20,25 +20,6 @@ fun List<AllPokemonQuery.AllPokemon?>?.toPokemonListResponse() =
         )
     }.orEmpty()
 
-fun SinglePokemonQuery.Pokemon?.toPokemonItemResponse(): PokemonItemResponse? {
-    this?.let { query ->
-        return PokemonItemResponse(
-            id = query.id?.toString() ?: return null,
-            name = query.name?.replaceFirstChar { it.uppercase() } ?: return null,
-            types = query.types?.mapNotNull { pokemonType ->
-                pokemonType?.name
-            }?.joinToString(
-                separator = ", "
-            ) { name ->
-                name
-            } ?: return null,
-            sprite = query.sprites?.front_default ?: return null
-        )
-    } ?: run {
-        return null
-    }
-}
-
 fun  Flow<List<Pokemon>>.mapToPokemonListResponse() =
     this.map { list ->
         list.map { pokemon ->

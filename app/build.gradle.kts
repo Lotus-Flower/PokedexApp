@@ -61,7 +61,6 @@ android {
 dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.androidx)
-    implementation(libs.androidx.datastore)
     implementation(libs.apollo)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
