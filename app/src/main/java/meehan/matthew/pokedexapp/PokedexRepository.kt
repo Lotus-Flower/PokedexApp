@@ -15,9 +15,6 @@ class PokedexRepository @Inject constructor(
     private val apolloClient: ApolloClient,
     private val database: Database
 ) {
-    init {
-        database.pokemonQueries.deleteAllPokemon()
-    }
 
     suspend fun getRemotePokemonList(limit: Int = DEFAULT_POKEMON_LIMIT) = withContext(dispatcher) {
         apolloClient.query(
@@ -26,6 +23,20 @@ class PokedexRepository @Inject constructor(
             )
         ).execute().data?.allPokemon.toPokemonListResponse()
     }
+
+    fun persistPokemon(pokemon: PokemonItemResponse) =
+        database.pokemonQueries.insertOrReplacePokemon(
+            id = pokemon.id,
+            name = pokemon.name,
+            types = pokemon.types,
+            sprite = pokemon.sprite
+        )
+
+    fun getLocalPokemonList() = database.pokemonQueries
+        .selectAll()
+        .asFlow()
+        .mapToList()
+        .mapToPokemonListResponse()
 
     fun getFavorites() = database.pokemonQueries
         .selectAllFavorites()
@@ -41,20 +52,7 @@ class PokedexRepository @Inject constructor(
         id = id
     )
 
-    fun persistPokemon(pokemon: PokemonItemResponse) {
-        database.pokemonQueries.insertOrReplacePokemon(
-            id = pokemon.id,
-            name = pokemon.name,
-            types = pokemon.types,
-            sprite = pokemon.sprite
-        )
-    }
-
-    fun getLocalPokemonList() = database.pokemonQueries
-        .selectAll()
-        .asFlow()
-        .mapToList()
-        .mapToPokemonListResponse()
+    fun clearLocalPokemonData() = database.pokemonQueries.deleteAllPokemon()
 
     companion object {
         private const val DEFAULT_POKEMON_LIMIT = 150

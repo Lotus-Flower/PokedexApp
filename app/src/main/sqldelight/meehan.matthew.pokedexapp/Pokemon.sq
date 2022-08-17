@@ -41,6 +41,3 @@ WHERE id = :id;
 
 deleteAllPokemon:
 DELETE FROM Pokemon;
-
-deleteAllFavorites:
-DELETE FROM Favorites;

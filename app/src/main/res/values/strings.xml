@@ -2,4 +2,6 @@
     <string name="app_name">PokedexApp</string>
     <string name="pokedex_list">Pokedex List</string>
     <string name="pokedex_favorites">Pokedex Favorites</string>
+    <string name="favorite">Favorite</string>
+    <string name="no_data">No Data</string>
 </resources>

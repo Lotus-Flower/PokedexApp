@@ -27,7 +27,7 @@ class PokedexFavoritesViewModel @AssistedInject constructor(
                 PokedexItemState(
                     data = pokemonItem,
                     favorite = true,
-                    onFavoriteButtonChecked = { _ ->
+                    onFavoriteButtonChecked = {
                         onFavoriteButtonChecked(
                             id = pokemonItem.id
                         )

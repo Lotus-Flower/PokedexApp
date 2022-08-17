@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import coil.compose.AsyncImage
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 import meehan.matthew.pokedexapp.ui.theme.Purple200
+import meehan.matthew.pokedexapp.ui.theme.dimens
+import meehan.matthew.pokedexapp.ui.theme.spriteImageSize
 
 @Composable
 fun PokedexItemView(
@@ -27,101 +30,149 @@ fun PokedexItemView(
     Row(
         modifier = modifier
     ) {
-        AsyncImage(
-            model = item.data.sprite,
-            placeholder = painterResource(
-                id = R.drawable.ic_launcher_foreground
-            ),
+        PokedexItemImageView(
+            imageUrl = item.data.sprite,
             contentDescription = item.data.name,
-            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(
-                    size = 80.dp
+                    size = spriteImageSize
                 )
         )
-        Column(
+        PokedexItemTextView(
+            nameText = item.data.name,
+            typeText = item.data.types,
             modifier = Modifier
                 .padding(
-                    horizontal = 4.dp,
-                    vertical = 8.dp
+                    horizontal = dimens.spacingHalf,
+                    vertical = dimens.spacingStandard
                 )
-        ) {
-            Text(
-                text = item.data.name
-            )
-            Text(
-                text = item.data.types
-            )
-        }
+        )
         Spacer(
             modifier = Modifier.weight(
                 weight = 1f
             )
         )
-        IconToggleButton(
-            checked = item.favorite,
+        PokedexItemFavoriteButtonView(
+            favorite = item.favorite,
             onCheckedChange = {
-                item.onFavoriteButtonChecked.invoke(
-                    it
-                )
+                item.onFavoriteButtonChecked.invoke(it)
             },
             modifier = Modifier
                 .align(
                     alignment = Alignment.CenterVertically
                 )
-        ) {
-            Icon(
-                imageVector = when (item.favorite) {
-                    true -> Icons.Filled.Star
-                    false -> Icons.TwoTone.Star
-                },
-                contentDescription = "",
-                tint = when (item.favorite) {
-                    true -> Purple200
-                    false -> Color.LightGray
-                }
-            )
-        }
+        )
     }
 }
 
-@Preview
 @Composable
-fun PokedexItemViewPreview() {
-    PokedexAppTheme {
-        PokedexItemView(
-            PokedexItemState(
-                data = PokemonItemResponse(
-                    id = "1",
-                    name = "Bulbasaur",
-                    types = "Grass, Poison",
-                    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                ),
-                favorite = false,
-                onFavoriteButtonChecked = {}
+fun PokedexItemImageView(
+    imageUrl: String,
+    modifier: Modifier = Modifier,
+    contentDescription: String? = null
+) {
+    AsyncImage(
+        model = imageUrl,
+        placeholder = painterResource(
+            id = R.drawable.ic_launcher_foreground
+        ),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Crop,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun PokedexItemTextView(
+    nameText: String,
+    typeText: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = nameText
+        )
+        Text(
+            text = typeText
+        )
+    }
+}
+
+@Composable
+fun PokedexItemFavoriteButtonView(
+    favorite: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconToggleButton(
+        checked = favorite,
+        onCheckedChange = {
+            onCheckedChange.invoke(
+                it
+            )
+        },
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = when (favorite) {
+                true -> Icons.Filled.Star
+                false -> Icons.TwoTone.Star
+            },
+            contentDescription = stringResource(
+                id = R.string.favorite
             ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
+            tint = when (favorite) {
+                true -> Purple200
+                false -> Color.LightGray
+            }
         )
     }
 }
 
 @Preview
 @Composable
-fun PokedexItemViewPreviewFavorite() {
+fun PokedexItemImagePreview() {
+    PokedexAppTheme {
+        PokedexItemImageView(
+            imageUrl = ""
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PokedexItemTextPreview() {
+    PokedexAppTheme {
+        PokedexItemTextView(
+            nameText = "Squirtle",
+            typeText = "Water"
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PokedexItemFavoriteButtonPreview() {
+    PokedexAppTheme {
+        PokedexItemFavoriteButtonView(
+            favorite = false,
+            onCheckedChange = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PokedexItemPreview(
+    @PreviewParameter(
+        PokedexItemStatePreviewProvider::class
+    ) state: PokedexItemState
+) {
     PokedexAppTheme {
         PokedexItemView(
-            PokedexItemState(
-                data = PokemonItemResponse(
-                    id = "1",
-                    name = "Bulbasaur",
-                    types = "Grass, Poison",
-                    sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                ),
-                favorite = true,
-                onFavoriteButtonChecked = {}
-            ),
+            item = state,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min)

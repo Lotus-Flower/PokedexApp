@@ -14,6 +14,8 @@ class PokedexAppViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
+        repository.clearLocalPokemonData()
+
         viewModelScope.launch {
             getAndPersistPokemon()
         }
