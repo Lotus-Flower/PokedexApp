@@ -1,7 +1,8 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.utils
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import meehan.matthew.pokedexapp.AllPokemonQuery
 import meehan.matthew.pokedexapp.models.PokemonItemData
 import meehanmatthewpokedexapp.Pokemon
 

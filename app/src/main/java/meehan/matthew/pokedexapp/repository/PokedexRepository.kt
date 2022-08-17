@@ -8,11 +8,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import meehan.matthew.pokedexapp.AllPokemonQuery
 import meehan.matthew.pokedexapp.Database
-import meehan.matthew.pokedexapp.mapToPokemonListResponse
+import meehan.matthew.pokedexapp.utils.mapToPokemonListResponse
 import meehan.matthew.pokedexapp.models.PokemonItemData
 import meehan.matthew.pokedexapp.network.ApiResponse
 import meehan.matthew.pokedexapp.network.makeNetworkRequest
-import meehan.matthew.pokedexapp.toPokemonListResponse
+import meehan.matthew.pokedexapp.utils.toPokemonListResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
