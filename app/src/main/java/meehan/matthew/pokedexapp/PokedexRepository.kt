@@ -16,15 +16,33 @@ class PokedexRepository @Inject constructor(
     private val database: Database
 ) {
 
-    suspend fun getRemotePokemonList(limit: Int = DEFAULT_POKEMON_LIMIT) = withContext(dispatcher) {
-        apolloClient.query(
-            AllPokemonQuery(
-                limit = Optional.Present(limit)
-            )
-        ).execute().data?.allPokemon.toPokemonListResponse()
+    suspend fun getAndPersistRemotePokemonList(limit: Int = DEFAULT_POKEMON_LIMIT): ApiResponse<AllPokemonQuery.Data> {
+        val response = withContext(dispatcher) {
+            makeNetworkRequest {
+                apolloClient.query(
+                    AllPokemonQuery(
+                        limit = Optional.Present(limit)
+                    )
+                ).execute()
+            }
+        }
+        return when (response) {
+            is ApiResponse.Error -> response
+            is ApiResponse.Success -> {
+                persistAllPokemon(
+                    pokemonList = response.data.allPokemon.toPokemonListResponse()
+                )
+                response
+            }
+        }
     }
 
-    fun persistPokemon(pokemon: PokemonItemResponse) =
+    private fun persistAllPokemon(pokemonList: List<PokemonItemResponse>) =
+        pokemonList.forEach {
+            persistSinglePokemon(it)
+        }
+
+    private fun persistSinglePokemon(pokemon: PokemonItemResponse) =
         database.pokemonQueries.insertOrReplacePokemon(
             id = pokemon.id,
             name = pokemon.name,

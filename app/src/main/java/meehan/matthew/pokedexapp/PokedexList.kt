@@ -1,15 +1,10 @@
 package meehan.matthew.pokedexapp
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
@@ -19,52 +14,41 @@ fun PokedexList(
     data: List<PokedexItemState>,
     modifier: Modifier = Modifier
 ) {
-    when (data.isNotEmpty()) {
-        true -> LazyColumn(
-            modifier = modifier
-        ) {
-            items(
-                items = data,
-                itemContent = { item ->
-                    PokedexItemView(
-                        item = item
-                    )
-                }
-            )
-        }
-        false -> EmptyDataView(
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-fun EmptyDataView(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    LazyColumn(
         modifier = modifier
     ) {
-        Text(
-            text = stringResource(
-                id = R.string.no_data
-            )
+        items(
+            items = data,
+            itemContent = { item ->
+                PokedexItemView(
+                    item = item
+                )
+            }
         )
     }
 }
 
 @Preview
 @Composable
-fun PokedexListPreview(
-    @PreviewParameter(
-        PokedexItemStateListPreviewProvider::class
-    ) data: List<PokedexItemState>
-) {
+fun PokedexListPreview() {
+    val previewItem = PokedexItemState(
+        data = PokemonItemResponse(
+            id = "1",
+            name = "Bulbasaur",
+            types = "Grass, Poison",
+            sprite = ""
+        ),
+        favorite = false,
+        onFavoriteButtonChecked = {}
+    )
+
     PokedexAppTheme {
         PokedexList(
-            data = data,
+            data = listOf(
+                previewItem,
+                previewItem,
+                previewItem
+            ),
             modifier = Modifier
                 .fillMaxSize()
         )

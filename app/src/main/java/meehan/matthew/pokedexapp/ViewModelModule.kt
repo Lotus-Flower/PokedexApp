@@ -13,6 +13,11 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
+    @ViewModelKey(PokedexAppViewModel::class)
+    abstract fun pokedexAppViewModelFactory(factory: PokedexAppViewModel.Factory): AssistedViewModelFactory<*, *>
+
+    @Binds
+    @IntoMap
     @ViewModelKey(PokedexListViewModel::class)
     abstract fun pokedexListViewModelFactory(factory: PokedexListViewModel.Factory): AssistedViewModelFactory<*, *>
 

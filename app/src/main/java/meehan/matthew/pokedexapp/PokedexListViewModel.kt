@@ -42,13 +42,7 @@ class PokedexListViewModel @AssistedInject constructor(
                 it.data.id.toInt()
             }
 
-            withContext(Dispatchers.Main) {
-                this@PokedexListViewModel.setState {
-                    this.copy(
-                        data = data
-                    )
-                }
-            }
+            setLoadedState(data)
         }.collect()
     }
 
@@ -61,6 +55,12 @@ class PokedexListViewModel @AssistedInject constructor(
                 id = id
             )
         }
+    }
+
+    private fun setLoadedState(data: List<PokedexItemState>) = setState {
+        this.copy(
+            data = data
+        )
     }
 
     @AssistedFactory
