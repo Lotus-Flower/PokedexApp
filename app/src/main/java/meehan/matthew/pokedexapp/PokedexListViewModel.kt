@@ -30,12 +30,6 @@ class PokedexListViewModel @AssistedInject constructor(
                     data = pokemonItem,
                     favorite = favorites.any { favorite ->
                          favorite.id == pokemonItem.id
-                    },
-                    onFavoriteButtonChecked = { checked ->
-                        onFavoriteButtonChecked(
-                            checked = checked,
-                            id = pokemonItem.id
-                        )
                     }
                 )
             }.sortedBy {
@@ -46,13 +40,13 @@ class PokedexListViewModel @AssistedInject constructor(
         }.collect()
     }
 
-    private fun onFavoriteButtonChecked(checked: Boolean, id: String) = viewModelScope.launch {
+    fun onFavoriteButtonChecked(checked: Boolean, item: PokemonItemResponse) = viewModelScope.launch {
         when (checked) {
             true -> repository.addFavorite(
-                id = id
+                id = item.id
             )
             false -> repository.removeFavorite(
-                id = id
+                id = item.id
             )
         }
     }

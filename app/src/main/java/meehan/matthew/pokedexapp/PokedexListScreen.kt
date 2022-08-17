@@ -15,6 +15,12 @@ fun PokedexListScreen(
 
     PokedexList(
         data = state.data,
+        onItemChecked = { checked, item ->
+            viewModel.onFavoriteButtonChecked(
+                checked = checked,
+                item = item
+            )
+        },
         modifier = modifier
             .fillMaxSize()
     )

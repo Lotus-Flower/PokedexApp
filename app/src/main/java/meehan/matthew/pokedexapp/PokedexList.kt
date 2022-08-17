@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 
 @Composable
 fun PokedexList(
     data: List<PokedexItemState>,
+    onItemChecked: (Boolean, PokemonItemResponse) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -21,7 +21,8 @@ fun PokedexList(
             items = data,
             itemContent = { item ->
                 PokedexItemView(
-                    item = item
+                    item = item,
+                    onItemChecked = onItemChecked
                 )
             }
         )
@@ -38,8 +39,7 @@ fun PokedexListPreview() {
             types = "Grass, Poison",
             sprite = ""
         ),
-        favorite = false,
-        onFavoriteButtonChecked = {}
+        favorite = false
     )
 
     PokedexAppTheme {
@@ -49,6 +49,7 @@ fun PokedexListPreview() {
                 previewItem,
                 previewItem
             ),
+            onItemChecked = { _, _ -> },
             modifier = Modifier
                 .fillMaxSize()
         )

@@ -25,6 +25,7 @@ import meehan.matthew.pokedexapp.ui.theme.spriteImageSize
 @Composable
 fun PokedexItemView(
     item: PokedexItemState,
+    onItemChecked: (Boolean, PokemonItemResponse) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -55,7 +56,7 @@ fun PokedexItemView(
         PokedexItemFavoriteButtonView(
             favorite = item.favorite,
             onCheckedChange = {
-                item.onFavoriteButtonChecked.invoke(it)
+                onItemChecked.invoke(it, item.data)
             },
             modifier = Modifier
                 .align(
@@ -173,6 +174,7 @@ fun PokedexItemPreview(
     PokedexAppTheme {
         PokedexItemView(
             item = state,
+            onItemChecked = { _, _ -> },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min)

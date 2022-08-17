@@ -8,7 +8,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -26,12 +25,7 @@ class PokedexFavoritesViewModel @AssistedInject constructor(
             val data = pokemonList.map { pokemonItem ->
                 PokedexItemState(
                     data = pokemonItem,
-                    favorite = true,
-                    onFavoriteButtonChecked = {
-                        onFavoriteButtonChecked(
-                            id = pokemonItem.id
-                        )
-                    }
+                    favorite = true
                 )
             }.sortedBy {
                 it.data.id.toInt()
@@ -47,8 +41,8 @@ class PokedexFavoritesViewModel @AssistedInject constructor(
         }
     }
 
-    private fun onFavoriteButtonChecked(id: String) = repository.removeFavorite(
-        id = id
+    fun onFavoriteButtonChecked(item: PokemonItemResponse) = repository.removeFavorite(
+        id = item.id
     )
 
     @AssistedFactory

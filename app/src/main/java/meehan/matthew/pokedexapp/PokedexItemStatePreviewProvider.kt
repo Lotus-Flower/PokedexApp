@@ -11,8 +11,7 @@ class PokedexItemStatePreviewProvider : PreviewParameterProvider<PokedexItemStat
                 types = "Grass, Poison",
                 sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
             ),
-            favorite = true,
-            onFavoriteButtonChecked = {}
+            favorite = true
         ),
         PokedexItemState(
             data = PokemonItemResponse(
@@ -21,8 +20,7 @@ class PokedexItemStatePreviewProvider : PreviewParameterProvider<PokedexItemStat
                 types = "Fire",
                 sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
             ),
-            favorite = false,
-            onFavoriteButtonChecked = {}
+            favorite = false
         )
     )
 }
