@@ -1,6 +1,7 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.app
 
 import com.airbnb.mvrx.MavericksState
+import meehan.matthew.pokedexapp.navigation.NavigationRoute
 
 data class PokedexAppViewModelState(
     val selectedNavigationButton: NavigationRoute = NavigationRoute.POKEDEX_LIST_ROUTE,

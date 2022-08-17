@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.dependencyInjection
 
 import com.apollographql.apollo3.ApolloClient
 import dagger.Module

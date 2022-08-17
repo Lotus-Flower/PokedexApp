@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.favorites
 
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
@@ -10,6 +10,9 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import meehan.matthew.pokedexapp.repository.PokedexRepository
+import meehan.matthew.pokedexapp.models.PokemonItemData
+import meehan.matthew.pokedexapp.ui.list.PokedexItemState
 
 class PokedexFavoritesViewModel @AssistedInject constructor(
     @Assisted state: PokedexFavoritesScreenState,
@@ -41,7 +44,7 @@ class PokedexFavoritesViewModel @AssistedInject constructor(
         }
     }
 
-    fun onFavoriteButtonChecked(item: PokemonItemResponse) = repository.removeFavorite(
+    fun onFavoriteButtonChecked(item: PokemonItemData) = repository.removeFavorite(
         id = item.id
     )
 

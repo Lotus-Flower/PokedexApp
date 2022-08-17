@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import com.airbnb.mvrx.MavericksState
 

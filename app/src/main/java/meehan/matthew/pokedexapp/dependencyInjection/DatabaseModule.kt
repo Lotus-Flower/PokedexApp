@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.dependencyInjection
 
 import android.content.Context
 import com.squareup.sqldelight.android.AndroidSqliteDriver
@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import meehan.matthew.pokedexapp.Database
 import javax.inject.Singleton
 
 @Module

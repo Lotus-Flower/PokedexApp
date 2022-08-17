@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -7,16 +7,19 @@ import androidx.compose.ui.Modifier
 import com.airbnb.mvrx.compose.collectAsState
 
 @Composable
-fun PokedexFavoritesScreen(
-    viewModel: PokedexFavoritesViewModel,
+fun PokedexListScreen(
+    viewModel: PokedexListViewModel,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.collectAsState()
 
-    PokedexList(
+    PokedexListView(
         data = state.data,
-        onItemChecked = { _, item ->
-            viewModel.onFavoriteButtonChecked(item)
+        onItemChecked = { checked, item ->
+            viewModel.onFavoriteButtonChecked(
+                checked = checked,
+                item = item
+            )
         },
         modifier = modifier
             .fillMaxSize()

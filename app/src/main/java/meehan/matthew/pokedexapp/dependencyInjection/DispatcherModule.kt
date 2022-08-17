@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.dependencyInjection
 
 import dagger.Module
 import dagger.Provides

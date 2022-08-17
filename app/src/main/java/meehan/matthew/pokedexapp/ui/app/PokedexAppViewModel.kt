@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.app
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -10,6 +10,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
+import meehan.matthew.pokedexapp.navigation.NavigationRoute
+import meehan.matthew.pokedexapp.repository.PokedexRepository
+import meehan.matthew.pokedexapp.network.ApiResponse
 
 class PokedexAppViewModel @AssistedInject constructor(
     @Assisted state: PokedexAppViewModelState,

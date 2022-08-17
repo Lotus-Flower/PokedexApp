@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -6,12 +6,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import meehan.matthew.pokedexapp.models.PokemonItemData
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 
 @Composable
-fun PokedexList(
+fun PokedexListView(
     data: List<PokedexItemState>,
-    onItemChecked: (Boolean, PokemonItemResponse) -> Unit,
+    onItemChecked: (Boolean, PokemonItemData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -33,7 +34,7 @@ fun PokedexList(
 @Composable
 fun PokedexListPreview() {
     val previewItem = PokedexItemState(
-        data = PokemonItemResponse(
+        data = PokemonItemData(
             id = "1",
             name = "Bulbasaur",
             types = "Grass, Poison",
@@ -43,7 +44,7 @@ fun PokedexListPreview() {
     )
 
     PokedexAppTheme {
-        PokedexList(
+        PokedexListView(
             data = listOf(
                 previewItem,
                 previewItem,

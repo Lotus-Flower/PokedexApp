@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.airbnb.mvrx.compose.mavericksActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import meehan.matthew.pokedexapp.ui.app.PokedexAppScreen
+import meehan.matthew.pokedexapp.ui.app.PokedexAppViewModel
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 
 @AndroidEntryPoint

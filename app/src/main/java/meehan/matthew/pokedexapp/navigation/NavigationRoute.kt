@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.navigation
 
 enum class NavigationRoute(val route: String) {
     POKEDEX_LIST_ROUTE("LIST"),

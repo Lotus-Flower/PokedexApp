@@ -1,11 +1,12 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import meehan.matthew.pokedexapp.models.PokemonItemData
 
 class PokedexItemStatePreviewProvider : PreviewParameterProvider<PokedexItemState> {
     override val values: Sequence<PokedexItemState> = sequenceOf(
         PokedexItemState(
-            data = PokemonItemResponse(
+            data = PokemonItemData(
                 id = "1",
                 name = "Bulbasaur",
                 types = "Grass, Poison",
@@ -14,7 +15,7 @@ class PokedexItemStatePreviewProvider : PreviewParameterProvider<PokedexItemStat
             favorite = true
         ),
         PokedexItemState(
-            data = PokemonItemResponse(
+            data = PokemonItemData(
                 id = "4",
                 name = "Charmander",
                 types = "Fire",

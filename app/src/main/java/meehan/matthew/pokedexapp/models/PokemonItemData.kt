@@ -1,6 +1,6 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.models
 
-data class PokemonItemResponse(
+data class PokemonItemData(
     val id: String,
     val name: String,
     val types: String,

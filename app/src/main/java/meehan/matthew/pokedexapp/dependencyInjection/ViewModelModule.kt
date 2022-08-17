@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.dependencyInjection
 
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.MavericksViewModelComponent
@@ -7,6 +7,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.multibindings.IntoMap
+import meehan.matthew.pokedexapp.ui.app.PokedexAppViewModel
+import meehan.matthew.pokedexapp.ui.favorites.PokedexFavoritesViewModel
+import meehan.matthew.pokedexapp.ui.list.PokedexListViewModel
 
 @Module
 @InstallIn(MavericksViewModelComponent::class)

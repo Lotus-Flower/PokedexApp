@@ -2,11 +2,12 @@ package meehan.matthew.pokedexapp
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import meehan.matthew.pokedexapp.models.PokemonItemData
 import meehanmatthewpokedexapp.Pokemon
 
 fun List<AllPokemonQuery.AllPokemon?>?.toPokemonListResponse() =
     this?.mapNotNull { query ->
-        PokemonItemResponse(
+        PokemonItemData(
             id = query?.id?.toString() ?: return@mapNotNull null,
             name = query.name?.replaceFirstChar { it.uppercase() } ?: return@mapNotNull null,
             types = query.types?.mapNotNull { pokemonType ->
@@ -23,7 +24,7 @@ fun List<AllPokemonQuery.AllPokemon?>?.toPokemonListResponse() =
 fun  Flow<List<Pokemon>>.mapToPokemonListResponse() =
     this.map { list ->
         list.map { pokemon ->
-            PokemonItemResponse(
+            PokemonItemData(
                 id = pokemon.id,
                 name = pokemon.name,
                 types = pokemon.types,

@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
@@ -7,12 +7,11 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import meehan.matthew.pokedexapp.repository.PokedexRepository
+import meehan.matthew.pokedexapp.models.PokemonItemData
 
 class PokedexListViewModel @AssistedInject constructor(
     @Assisted state: PokedexListScreenState,
@@ -40,7 +39,7 @@ class PokedexListViewModel @AssistedInject constructor(
         }.collect()
     }
 
-    fun onFavoriteButtonChecked(checked: Boolean, item: PokemonItemResponse) = viewModelScope.launch {
+    fun onFavoriteButtonChecked(checked: Boolean, item: PokemonItemData) = viewModelScope.launch {
         when (checked) {
             true -> repository.addFavorite(
                 id = item.id

@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.app
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
+import meehan.matthew.pokedexapp.R
+import meehan.matthew.pokedexapp.navigation.NavigationRoute
+import meehan.matthew.pokedexapp.ui.favorites.PokedexFavoritesScreen
+import meehan.matthew.pokedexapp.ui.list.PokedexListScreen
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 
 @Composable

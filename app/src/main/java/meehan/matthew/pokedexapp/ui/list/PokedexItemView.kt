@@ -1,4 +1,4 @@
-package meehan.matthew.pokedexapp
+package meehan.matthew.pokedexapp.ui.list
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import coil.compose.AsyncImage
+import meehan.matthew.pokedexapp.models.PokemonItemData
+import meehan.matthew.pokedexapp.R
 import meehan.matthew.pokedexapp.ui.theme.PokedexAppTheme
 import meehan.matthew.pokedexapp.ui.theme.Purple200
 import meehan.matthew.pokedexapp.ui.theme.dimens
@@ -25,7 +27,7 @@ import meehan.matthew.pokedexapp.ui.theme.spriteImageSize
 @Composable
 fun PokedexItemView(
     item: PokedexItemState,
-    onItemChecked: (Boolean, PokemonItemResponse) -> Unit,
+    onItemChecked: (Boolean, PokemonItemData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
