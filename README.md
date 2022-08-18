@@ -1,4 +1,4 @@
-# PokedexApp
+<h1 align="center">Pokedex App</h1>
 Simple App for displaying a list of pokemon and user favorites, built using a full stack I've never used before:
 
 * Compose
