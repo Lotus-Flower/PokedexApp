@@ -12,3 +12,4 @@ Simple App for displaying a list of pokemon and user favorites, built using a fu
 * Mavericks - MVI framework from Airbnb
 * Apollo - GraphQL client
 * SQLDelight - Generated Kotlin APIs from SQL Statements from CashApp
+* Gradle Version Catalogs - For managing Gradle plugins and Dependencies
